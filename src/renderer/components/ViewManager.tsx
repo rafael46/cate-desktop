@@ -5,6 +5,7 @@ import {
     isViewSplitState, ViewState, ViewSplitState, ViewPanelState, ViewLayoutState, ViewPath,
     ViewRenderer, findMoveTargetViewIds
 } from "./ViewState";
+import {ExternalObjectDisposer} from "./ExternalObjectComponent";
 
 /**
  * Mapping from view type name to ViewRenderer
@@ -29,6 +30,7 @@ interface IViewManagerProps {
     onMoveView: (sourceViewId: string, placement: "before"|"after", targetViewId: string) => void;
     onSplitViewPanel: (viewPath: ViewPath, dir: SplitDir, pos: number) => void;
     onChangeViewSplitPos: (viewPath: ViewPath, delta: number) => void;
+    disposer: ExternalObjectDisposer;
 }
 
 interface IViewManagerState {
@@ -172,6 +174,7 @@ export class ViewManager extends React.PureComponent<IViewManagerProps, IViewMan
                 onCloseAllViews={this.props.onCloseAllViews}
                 onMoveView={this.props.onMoveView}
                 onSplitViewPanel={this.props.onSplitViewPanel}
+                disposer={this.props.disposer}
             />
         );
     }
@@ -193,6 +196,7 @@ interface IViewPanelProps {
     onCloseAllViews: (viewPath: ViewPath) => void;
     onMoveView: (sourceViewId: string, placement: "before"|"after", targetViewId: string) => void;
     onSplitViewPanel: (viewPath: ViewPath, dir: SplitDir, pos: number) => void;
+    disposer: ExternalObjectDisposer;
 }
 
 class ViewPanel extends React.PureComponent<IViewPanelProps, null> {
@@ -303,7 +307,7 @@ class ViewPanel extends React.PureComponent<IViewPanelProps, null> {
             let closeIconStyle;
             if (selectedView && selectedView.id === viewId) {
                 let viewRenderer = this.props.viewRenderMap[view.type];
-                renderedViewContent = viewRenderer(view);
+                renderedViewContent = viewRenderer(view, this.props.disposer);
                 tabStyle = ViewPanel.TAB_STYLE_SELECTED;
                 titleStyle = (selectedView === this.props.activeView) ? ViewPanel.TITLE_STYLE_ACTIVE : ViewPanel.TITLE_STYLE_SELECTED;
                 closeIconStyle = ViewPanel.CLOSE_ICON_STYLE_SELECTED;

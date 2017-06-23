@@ -203,8 +203,8 @@ export abstract class ExternalObjectComponent<E, ES, P extends IExternalObjectCo
      * Clients may call this method to force a regeneration of their external component.
      */
     forceRegeneration() {
-        let externalObjectStore = this.externalObjectStore;
-        let externalObjectRef = externalObjectStore[this.props.id];
+        const externalObjectStore = this.externalObjectStore;
+        const externalObjectRef = externalObjectStore[this.props.id];
         if (externalObjectRef) {
             delete externalObjectStore[this.props.id];
             if (this.parentContainer && externalObjectRef.container) {
@@ -212,6 +212,18 @@ export abstract class ExternalObjectComponent<E, ES, P extends IExternalObjectCo
             }
             this.remountExternalObject(this.parentContainer);
         }
+    }
+
+    protected releaseExternalObject(): any {
+        if (this.parentContainer) {
+            this.unmountExternalObject(this.parentContainer);
+        }
+        const externalObjectStore = this.externalObjectStore;
+        const externalObjectRef = externalObjectStore[this.props.id];
+        if (externalObjectRef) {
+            delete externalObjectStore[this.props.id];
+        }
+        return externalObjectRef;
     }
 
     protected remountExternalObject(parentContainer: HTMLElement | null) {
@@ -299,4 +311,9 @@ export abstract class ExternalObjectComponent<E, ES, P extends IExternalObjectCo
     private get externalObjectStore(): ExternalObjectStore<E, ES> {
         return (this.props.externalObjectStore || ExternalObjectComponent.DEFAULT_EXTERNAL_OBJECT_CACHE) as ExternalObjectStore<E, ES>;
     }
+}
+
+// <<<VIEW-DISPOSER>>>
+export interface ExternalObjectDisposer {
+    addHandler(handler: () => any): void;
 }

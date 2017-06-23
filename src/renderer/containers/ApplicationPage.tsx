@@ -21,16 +21,19 @@ import * as actions from "../actions";
 import * as selectors from "../selectors";
 import {ViewManager, ViewRenderMap} from "../components/ViewManager";
 import {ViewLayoutState, ViewState, ViewPath, SplitDir} from "../components/ViewState";
+import {ExternalObjectDisposer} from "../components/ExternalObjectComponent";
 
-
-function renderWorldView(view: ViewState<WorldViewDataState>) {
-    return view.data.viewMode === "3D" ? (<GlobeView view={view}/>) : (<MapView view={view}/>);
+// <<<VIEW-DISPOSER>>>
+function renderWorldView(view: ViewState<WorldViewDataState>, disposer: ExternalObjectDisposer) {
+    return view.data.viewMode === "3D" ? (<GlobeView view={view} disposer={disposer}/>) : (<MapView view={view}/>);
 }
 
-function renderFigureView(view: ViewState<FigureViewDataState>) {
+// <<<VIEW-DISPOSER>>>
+function renderFigureView(view: ViewState<FigureViewDataState>, disposer: ExternalObjectDisposer) {
     return <FigureView view={view}/>;
 }
 
+// <<<VIEW-DISPOSER>>>
 function renderTableView(view: ViewState<TableViewDataState>) {
     return <TableView view={view}/>;
 }
@@ -216,21 +219,26 @@ class _RightPanel extends React.PureComponent<IRightPanelProps & IDispatch, null
 }
 const RightPanel = connect(mapStateToPropsRight)(_RightPanel);
 
+interface IViewManagerPanelOwnProps {
+    disposer: ExternalObjectDisposer;
+}
+
 interface IViewManagerPanelProps {
     viewLayout: ViewLayoutState;
     views: ViewState<any>[];
     activeView: ViewState<any> | null;
 }
 
-function mapStateToPropsView(state: State): IViewManagerPanelProps {
+function mapStateToPropsView(state: State, ownProps: IViewManagerPanelOwnProps): IViewManagerPanelProps&IViewManagerPanelOwnProps {
     return {
         viewLayout: selectors.viewLayoutSelector(state),
         views: selectors.viewsSelector(state),
         activeView: selectors.activeViewSelector(state),
+        disposer: ownProps.disposer,
     };
 }
 
-class _CenterPanel extends React.PureComponent<IViewManagerPanelProps & IDispatch, null> {
+class _CenterPanel extends React.PureComponent<IViewManagerPanelProps & IViewManagerPanelOwnProps & IDispatch, null> {
     static readonly DIV_STYLE = {flex: "auto", height: "100%", overflow: "hidden"};
 
     constructor(props: IViewManagerPanelProps & IDispatch) {
@@ -282,6 +290,7 @@ class _CenterPanel extends React.PureComponent<IViewManagerPanelProps & IDispatc
                              onMoveView={this.onMoveView}
                              onChangeViewSplitPos={this.onChangeViewSplitPos}
                              onSplitViewPanel={this.onSplitViewPanel}
+                             disposer={this.props.disposer}
                 />
             </div>
         );

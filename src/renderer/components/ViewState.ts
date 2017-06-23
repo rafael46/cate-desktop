@@ -1,4 +1,5 @@
 import * as assert from "../../common/assert";
+import {ExternalObjectDisposer} from "./ExternalObjectComponent";
 
 
 export type SplitDir = "hor" | "ver";
@@ -21,7 +22,8 @@ export interface ViewState<T> {
     data: T;
 }
 
-export type ViewRenderer<T> = (view: ViewState<T>) => JSX.Element;
+// <<<VIEW-DISPOSER>>>
+export type ViewRenderer<T> = (view: ViewState<T>, disposer: ExternalObjectDisposer) => JSX.Element;
 
 
 /**

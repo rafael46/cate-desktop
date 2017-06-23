@@ -1,5 +1,8 @@
 import * as React from 'react';
-import {IExternalObjectComponentProps, ExternalObjectComponent} from '../ExternalObjectComponent'
+import {
+    IExternalObjectComponentProps, ExternalObjectComponent,
+    ExternalObjectDisposer
+} from '../ExternalObjectComponent'
 import {arrayDiff} from "../../../common/array-diff";
 import * as assert from "../../../common/assert";
 import {Feature, Point} from "geojson";
@@ -163,7 +166,8 @@ export interface ICesiumGlobeProps extends IExternalObjectComponentProps<Viewer,
     onPlacemarkSelected?: (placemarkId: string | null) => void;
     onViewerMounted?: (id: string, viewer: Viewer) => void;
     onViewerUnmounted?: (id: string, viewer: Viewer) => void;
-
+    // <<<VIEW-DISPOSER>>>
+    disposer?: ExternalObjectDisposer;
 }
 
 const CENTRAL_EUROPE_BOX = Cesium.Rectangle.fromDegrees(-30, 20, 40, 80);
@@ -244,6 +248,14 @@ export class CesiumGlobe extends ExternalObjectComponent<Viewer, CesiumGlobeStat
             const styleValue = `top : ${viewModel._screenPositionY}; left : ${viewModel._screenPositionX};`;
             viewModel._selectionIndicatorElement.setAttribute('style', styleValue);
         };
+
+        // <<<VIEW-DISPOSER>>>
+        if (this.props.disposer) {
+            this.props.disposer.addHandler(() => {
+                this.releaseExternalObject();
+                viewer.destroy();
+            });
+        }
 
         return viewer;
     }

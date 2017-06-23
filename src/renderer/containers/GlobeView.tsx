@@ -20,6 +20,7 @@ const Cesium: any = require('cesium');
 
 interface IGlobeViewOwnProps {
     view: ViewState<WorldViewDataState>;
+    disposer: any;
 }
 
 interface IGlobeViewProps extends IGlobeViewOwnProps {
@@ -36,6 +37,7 @@ interface IGlobeViewProps extends IGlobeViewOwnProps {
 function mapStateToProps(state: State, ownProps: IGlobeViewOwnProps): IGlobeViewProps {
     return {
         view: ownProps.view,
+        disposer: ownProps.disposer,
         baseUrl: selectors.webAPIRestUrlSelector(state),
         workspace: selectors.workspaceSelector(state),
         offlineMode: state.session.offlineMode,
