@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {NonIdealState} from '@blueprintjs/core';
+import {IconNames} from '@blueprintjs/icons';
 
-export const ICON_CIRCLE = 'pt-icon-circle';
-export const ICON_DISABLE = 'pt-icon-disable';
+export const ICON_CIRCLE = IconNames.CIRCLE;
+export const ICON_DISABLE = IconNames.DISABLE;
 
 export const CONFIG_ERROR_MESSAGE = (
     <span>This is very likely a configuration error, please check <code>.cate/webapi.log</code> file.</span>
@@ -18,7 +19,7 @@ export const NO_WORKSPACE = (
 export const NO_WORKSPACE_RESOURCES = (
     <NonIdealState
         title="No workspace resources"
-        visual="pt-icon-database"
+        visual={IconNames.DATABASE}
         description={<span>Open a dataset in DATA SOURCES panel or add a <code>read_</code> operation step from the OPERATIONS panel.</span>}
     />
 );
@@ -26,7 +27,7 @@ export const NO_WORKSPACE_RESOURCES = (
 export const NO_WORKFLOW_STEPS = (
     <NonIdealState
         title="No workflow steps"
-        visual="pt-icon-flows"
+        visual={IconNames.FLOWS}
         description={<span>Open a dataset in DATA SOURCES panel or add a <code>read_</code> operation step from the OPERATIONS panel.</span>}
     />
 );
@@ -34,7 +35,7 @@ export const NO_WORKFLOW_STEPS = (
 export const NO_DATA_STORES_FOUND = (
     <NonIdealState
         title="No data stores found"
-        visual="pt-icon-offline"
+        visual={IconNames.OFFLINE}
         description={CONFIG_ERROR_MESSAGE}/>
 );
 
@@ -90,7 +91,7 @@ export const NO_WEB_GL = (
 export const NO_PLACES = (
     <NonIdealState
         title="No places"
-        description={<span>Press the <span className="pt-icon-selection"/> or <span className="pt-icon-add"/> button to add a place.</span>}
+        description={<span>Press the <span className="selection"/> or <span className="add"/> button to add a place.</span>}
         visual={ICON_CIRCLE}/>
 );
 
@@ -111,7 +112,7 @@ export const NO_LAYERS_NO_VIEW = (
 export const NO_LAYERS_EMPTY_VIEW = (
     <NonIdealState
         title="No layers"
-        description={<span>Press the <span className="pt-icon-add"/> button to add a layer.</span>}
+        description={<span>Press the <span className="add"/> button to add a layer.</span>}
         visual={ICON_CIRCLE}/>
 );
 
@@ -139,7 +140,7 @@ export const NO_ENTITY_FOR_STYLE = (
 export const NO_CHARTS = (
     <NonIdealState
         title="No charts"
-        description={<span>Press the <span className="pt-icon-add"/> button to add a new chart.</span>}
+        description={<span>Press the <span className="add"/> button to add a new chart.</span>}
         visual={ICON_CIRCLE}/>
 );
 

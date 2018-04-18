@@ -5,7 +5,7 @@ import {AnchorButton, Checkbox} from "@blueprintjs/core";
 import * as selectors from "../selectors";
 import * as actions from "../actions";
 import {ViewState} from "../components/ViewState";
-import {NO_ACTIVE_VIEW} from "../messages";
+import {NO_ACTIVE_VIEW} from "../components/messages";
 
 interface IViewPanelDispatch {
     dispatch: Dispatch<State>;
@@ -67,7 +67,7 @@ class ViewPanel extends React.Component<IViewPanelProps & IViewPanelDispatch, nu
     render() {
         return (
             <div style={{margin: "0.2em 0.2em 0.2em 0.2em"}}>
-                <AnchorButton iconName="globe"
+                <AnchorButton icon="globe"
                               style={ViewPanel.ACTION_ITEM_STYLE}
                               onClick={this.onAddWorldView}>New World View</AnchorButton>
                 {this.renderActiveViewPanel()}
@@ -87,7 +87,7 @@ class ViewPanel extends React.Component<IViewPanelProps & IViewPanelDispatch, nu
             <label className="pt-label" style={ViewPanel.PROPERTY_ITEM_STYLE}>
                 Active view:
                 <div className="pt-input-group">
-                    <span className={"pt-icon " + activeView.iconName}/>
+                    <span className={"pt-icon " + activeView.icon}/>
                     <input className="pt-input" type="text" value={activeView.title} dir="auto" disabled={true}/>
                 </div>
             </label>

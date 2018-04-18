@@ -152,12 +152,12 @@ class MplFigureToolbar extends React.PureComponent<IMplFigureToolbarProps, null>
             const name = command['name'];
             if (name) {
                 const tooltipText = command['tooltip'];
-                const iconName = command['icon'];
+                const icon = command['icon'];
                 const onClick = command['callback'];
                 buttons.push(
                     <ToolButton key={i}
                                 tooltipContent={tooltipText}
-                                iconName={iconName}
+                                icon={icon}
                                 onClick={onClick}/>
                 );
             }

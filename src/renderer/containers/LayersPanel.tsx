@@ -14,10 +14,10 @@ import * as actions from '../actions';
 import * as selectors from '../selectors';
 import {ContentWithDetailsPanel} from '../components/ContentWithDetailsPanel';
 import LayerSourcesDialog from './LayerSourcesDialog';
-import {getLayerDisplayName, getLayerTypeIconName, AUTO_LAYER_ID} from '../state-util';
+import {getLayerDisplayName, getLayerTypeIcon, AUTO_LAYER_ID} from '../state-util';
 import {ScrollablePanelContent} from '../components/ScrollableContent';
 import {ViewState} from '../components/ViewState';
-import {NO_LAYER_SELECTED, NO_LAYERS_EMPTY_VIEW, NO_LAYERS_NO_VIEW} from '../messages';
+import {NO_LAYER_SELECTED, NO_LAYERS_EMPTY_VIEW, NO_LAYERS_NO_VIEW} from '../components/messages';
 import {SubPanelHeader} from '../components/SubPanelHeader';
 import {ToolButton} from "../components/ToolButton";
 
@@ -142,7 +142,7 @@ class LayersPanel extends React.Component<ILayersPanelProps & DispatchProp<State
                            this.handleChangedLayerVisibility(layer, event.target.checked)
                        }}
                 />
-                <span style={{marginLeft: '0.5em'}} className={getLayerTypeIconName(layer)}/>
+                <span style={{marginLeft: '0.5em'}} className={getLayerTypeIcon(layer)}/>
                 <span style={{marginLeft: '0.5em'}}>{getLayerDisplayName(layer)}</span>
             </div>
         );
@@ -181,19 +181,19 @@ class LayersPanel extends React.Component<ILayersPanelProps & DispatchProp<State
                 <ToolButton tooltipContent="Add a new layer" tooltipPosition={Position.LEFT}
                             className="pt-intent-primary"
                             onClick={this.handleAddLayerButtonClicked}
-                            iconName="add"/>
+                            icon="add"/>
                 <ToolButton tooltipContent="Remove selected layer" tooltipPosition={Position.LEFT}
                             disabled={!canRemoveLayer}
                             onClick={this.handleRemoveLayerButtonClicked}
-                            iconName="remove"/>
+                            icon="remove"/>
                 <ToolButton tooltipContent="Move layer up" tooltipPosition={Position.LEFT}
                             disabled={!canMoveLayerUp}
                             onClick={this.handleMoveLayerUpButtonClicked}
-                            iconName="arrow-up"/>
+                            icon="arrow-up"/>
                 <ToolButton tooltipContent="Move layer down" tooltipPosition={Position.LEFT}
                             disabled={!canMoveLayerDown}
                             onClick={this.handleMoveLayerDownButtonClicked}
-                            iconName="arrow-down"/>
+                            icon="arrow-down"/>
                 <LayerSourcesDialog/>
             </div>
         );

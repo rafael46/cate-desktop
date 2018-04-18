@@ -113,9 +113,9 @@ class DownloadDataSourceDialog extends React.Component<IDownloadDataSourceDialog
             <ModalDialog
                 isOpen={isOpen}
                 title="Download Data Source"
-                iconName="cloud-download"
+                icon="cloud-download"
                 confirmTitle={confirmTitle}
-                confirmIconName="cloud-download"
+                confirmIcon="cloud-download"
                 confirmTooltip={confirmTooltip}
                 onCancel={this.onCancel}
                 onConfirm={this.onConfirm}

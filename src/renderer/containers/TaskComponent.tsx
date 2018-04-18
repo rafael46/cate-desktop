@@ -1,17 +1,15 @@
-import * as React from "react";
-import { CSSProperties } from "react";
-import { connect, DispatchProp } from "react-redux";
-import { AnchorButton, Intent, ProgressBar } from "@blueprintjs/core";
-import { Card } from "../components/Card";
-import { State, TaskState } from "../state";
-import * as actions from "../actions";
+import * as React from 'react';
+import { CSSProperties } from 'react';
+import { connect, DispatchProp } from 'react-redux';
+import { AnchorButton, Classes, Intent, ProgressBar } from '@blueprintjs/core';
+import { Card } from '../components/Card';
+import { State, TaskState } from '../state';
+import * as actions from '../actions';
 import {
-    getJobFailureIconName,
-    getJobFailureIntentName,
-    getJobFailureTitle,
     JobFailure,
     JobStatusEnum
-} from "../webapi";
+} from '../webapi';
+import { getJobFailureIcon, getJobFailureIntentName, getJobFailureTitle } from '../components/job-failure-util';
 
 interface ITaskComponentProps {
     task: TaskState;
@@ -29,10 +27,10 @@ function mapStateToProps(state: State, ownProps: ITaskComponentProps): ITaskComp
 class TaskComponent extends React.Component<DispatchProp<State> & ITaskComponentProps, null> {
     static readonly FLEX_ROW_STYLE: CSSProperties = {display: 'flex', flexFlow: 'row nowrap', width: '100%'};
     static readonly PROGRESS_STYLE: CSSProperties = {
-        flex: "3 1 auto",
-        display: "flex",
-        flexFlow: "column",
-        justifyContent: "center",
+        flex: '3 1 auto',
+        display: 'flex',
+        flexFlow: 'column',
+        justifyContent: 'center',
         paddingRight: 10
     };
 
@@ -56,10 +54,10 @@ class TaskComponent extends React.Component<DispatchProp<State> & ITaskComponent
     }
 
     private static renderIcon(jobFailure: JobFailure) {
-        const icon = getJobFailureIconName(jobFailure);
+        const icon = getJobFailureIcon(jobFailure);
         const intent = getJobFailureIntentName(jobFailure);
         return (
-            <span className={`pt-icon-standard pt-icon-${icon} pt-intent-${intent}`}
+            <span className={`pt-icon-standard ${Classes.iconClass(icon)} ${Classes.intentClass(intent)}`}
                   style={{paddingRight: '0.4em'}}/>
         );
     }
@@ -85,7 +83,7 @@ class TaskComponent extends React.Component<DispatchProp<State> & ITaskComponent
                 const cancelableProgress = (
                     <div style={TaskComponent.FLEX_ROW_STYLE}>
                         <div style={TaskComponent.PROGRESS_STYLE}>{progressBar}</div>
-                        <div style={{flex: "0 1 auto"}}>{cancelButton}</div>
+                        <div style={{flex: '0 1 auto'}}>{cancelButton}</div>
                     </div>
                 );
 
@@ -115,7 +113,7 @@ class TaskComponent extends React.Component<DispatchProp<State> & ITaskComponent
                 <div>
                     <div className="pt-button-group pt-minimal" style={{float: 'right'}}>
                         {detailsButton}
-                        <AnchorButton iconName="cross" onClick={removeJob}/>
+                        <AnchorButton icon="cross" onClick={removeJob}/>
                     </div>
                     {message}
                 </div>

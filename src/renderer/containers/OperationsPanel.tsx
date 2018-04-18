@@ -10,9 +10,10 @@ import {State, OperationState, WorkspaceState, OperationOutputState, OperationIn
 import * as actions from "../actions";
 import * as selectors from "../selectors";
 import {ScrollablePanelContent} from "../components/ScrollableContent";
-import {NO_OPERATIONS_FOUND} from "../messages";
+import {NO_OPERATIONS_FOUND} from "../components/messages";
 import {ToolButton} from "../components/ToolButton";
 import {NEW_OPERATION_STEP_DIALOG_ID} from "./operation-step-dialog-ids";
+import { IconNames } from '@blueprintjs/icons';
 
 
 interface IOperationsPanelProps {
@@ -124,7 +125,7 @@ class OperationsPanel extends React.Component<IOperationsPanelProps & DispatchPr
             const operationFilterExprInput = (
                 <InputGroup
                     disabled={false}
-                    leftIconName="filter"
+                    leftIcon="filter"
                     onChange={this.handleOperationFilterExprChange}
                     placeholder="Find operation"
                     rightElement={resultsTag}
@@ -140,7 +141,7 @@ class OperationsPanel extends React.Component<IOperationsPanelProps & DispatchPr
                                 onClick={this.handleAddOperationStepButtonClicked}
                                 disabled={!canAddStepOperation}
                                 text="Add Step..."
-                                iconName="play"/>
+                                icon="play"/>
                     {canAddStepOperation ? <OperationStepDialog id={NEW_OPERATION_STEP_DIALOG_ID}/> : null}
                 </div>
             );
@@ -212,7 +213,7 @@ class OperationsPanel extends React.Component<IOperationsPanelProps & DispatchPr
                 <Popover
                     content={tagMenu}
                     interactionKind={PopoverInteractionKind.CLICK}>
-                    <Tag intent={Intent.SUCCESS} className="pt-icon-small-plus" style={tagStyle}/>
+                    <Tag intent={Intent.SUCCESS} className={Classes.iconClass(IconNames.SMALL_PLUS)} style={tagStyle}/>
                 </Popover>
             );
         }

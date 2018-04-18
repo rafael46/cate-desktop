@@ -1,11 +1,12 @@
-import * as React from "react";
-import {AnchorButton} from "@blueprintjs/core";
-import {DialogState, State} from "../state";
-import {ModalDialog} from "../components/ModalDialog";
-import {connect, DispatchProp} from "react-redux";
-import * as actions from "../actions";
-import {OpenDialogProperty} from "../actions";
-import * as selectors from "../selectors";
+import * as React from 'react';
+import { AnchorButton } from '@blueprintjs/core';
+import { IconNames } from '@blueprintjs/icons';
+import { DialogState, State } from '../state';
+import { ModalDialog } from '../components/ModalDialog';
+import { connect, DispatchProp } from 'react-redux';
+import * as actions from '../actions';
+import { OpenDialogProperty } from '../actions';
+import * as selectors from '../selectors';
 
 interface IAddDatasetDialogProps {
     isOpen: boolean;
@@ -65,9 +66,9 @@ class AddDatasetDialog extends React.Component<IAddDatasetDialogProps & Dispatch
 
     private showSelectDirectoryDialog() {
         const openDialogOptions = {
-            title: "Select Directory",
+            title: 'Select Directory',
             defaultPath: this.state.filePathPattern,
-            buttonLabel: "Select",
+            buttonLabel: 'Select',
             properties: [
                 'openDirectory' as OpenDialogProperty,
             ],
@@ -90,9 +91,9 @@ class AddDatasetDialog extends React.Component<IAddDatasetDialogProps & Dispatch
             <ModalDialog
                 isOpen={isOpen}
                 title="Add local data source"
-                iconName="add"
+                icon={IconNames.ADD}
                 confirmTitle="Add"
-                confirmIconName="add"
+                confirmIcon={IconNames.ADD}
                 confirmTooltip="Add local data source."
                 onCancel={this.onCancel}
                 canConfirm={this.canConfirm}
@@ -131,4 +132,5 @@ class AddDatasetDialog extends React.Component<IAddDatasetDialogProps & Dispatch
         );
     }
 }
+
 export default connect(mapStateToProps)(AddDatasetDialog);

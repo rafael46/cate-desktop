@@ -802,19 +802,3 @@ export interface LocationState {
     positionData: { [varName: string]: number } | null
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// MessageState
-
-export interface MessageActionState {
-    text: string;
-    onClick?: (...actionArgs) => void;
-    href?: string;
-    iconName?: IconName;
-}
-
-export interface MessageState {
-    type: 'info' | 'success' | 'notification' | 'warning' | 'error';
-    text: string | JSX.Element;
-    action?: MessageActionState;
-}
-

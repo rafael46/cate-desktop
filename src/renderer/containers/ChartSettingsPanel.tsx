@@ -1,7 +1,7 @@
 import * as React from "react";
 import {connect} from "react-redux";
 import {ResourceState, State} from "../state";
-import {NO_CHARTS} from "../messages";
+import {NO_CHARTS} from "../components/messages";
 import {ListBox, ListBoxSelectionMode} from "../components/ListBox";
 import {ScrollablePanelContent} from "../components/ScrollableContent";
 import * as selectors from "../selectors";

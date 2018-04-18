@@ -1,9 +1,10 @@
 import * as React from 'react'
+import { IconName } from "@blueprintjs/icons";
 
 export interface IPanelProps {
     id: string;
     title: string;
-    iconName: string;
+    icon: IconName;
     body?: JSX.Element|null;
     position?: "top" | "bottom";
 }

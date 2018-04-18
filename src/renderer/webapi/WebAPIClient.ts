@@ -36,6 +36,8 @@ import {
     JobResponseHandler,
     JobFailureHandler, JobStatusEnum
 } from './Job'
+import { IconName } from "@blueprintjs/icons";
+import { Intent } from '@blueprintjs/core/lib/esm/common/intent';
 
 // IMPORTANT NOTE: The following error codes MUST BE COPIED from cate/util/web/jsonrpchandler.py
 //
@@ -368,59 +370,4 @@ class JobImpl<JobResponse> implements Job {
             this.onReject(failure);
         }
     }
-}
-
-export function getJobFailureIntentName(failure: JobFailure): string {
-    if (failure) {
-        switch (failure.code) {
-            case ERROR_CODE_INVALID_PARAMS:
-            case ERROR_CODE_CANCELLED:
-                return 'primary';
-            case ERROR_CODE_OS_ERROR:
-                return 'warning';
-            default:
-                return 'danger';
-        }
-    }
-    return 'warning';
-}
-
-export function getJobFailureIconName(failure: JobFailure): string {
-    if (failure) {
-        switch (failure.code) {
-            case ERROR_CODE_INVALID_PARAMS:
-                return 'info-sign';
-            case ERROR_CODE_CANCELLED:
-                return 'hand';
-            default:
-                return 'error';
-        }
-    }
-    return 'warning-sign';
-}
-
-export function getJobFailureTitle(failure: JobFailure): string {
-
-    if (failure) {
-        switch (failure.code) {
-            case ERROR_CODE_INVALID_PARAMS:
-                return 'Invalid Input';
-            case ERROR_CODE_OUT_OF_MEMORY:
-                return 'Out-Of-Memory Error';
-            case ERROR_CODE_OS_ERROR:
-                return 'External Problem';
-            case ERROR_CODE_CANCELLED:
-                return 'Task Cancelled';
-            case ERROR_CODE_METHOD_NOT_FOUND:
-                return 'Internal Error (Method Not Found)';
-            case ERROR_CODE_INVALID_REQUEST:
-                return 'Internal Error (Invalid Request)';
-            case ERROR_CODE_INVALID_RESPONSE:
-                return 'Internal Error (Invalid Response)';
-            case ERROR_CODE_METHOD_ERROR:
-                return 'Operation Error';
-        }
-    }
-
-    return 'Unknown Error';
 }

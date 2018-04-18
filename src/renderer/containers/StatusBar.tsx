@@ -1,12 +1,13 @@
 import * as React from "react";
-import {CSSProperties} from "react";
-import {connect, DispatchProp} from "react-redux";
-import {GeographicPosition, State, TaskState} from "../state";
+import { CSSProperties } from "react";
+import { connect, DispatchProp } from "react-redux";
+import { GeographicPosition, State, TaskState } from "../state";
 import * as selectors from "../selectors";
 import * as actions from "../actions";
-import {Intent, Popover, PopoverInteractionKind, Position, ProgressBar, Tooltip} from "@blueprintjs/core";
-import {JobStatusEnum} from "../webapi";
+import { Classes, Intent, Popover, PopoverInteractionKind, Position, ProgressBar, Tooltip } from '@blueprintjs/core';
+import { JobStatusEnum } from "../webapi";
 import TaskComponent from "./TaskComponent";
+import { IconName } from "@blueprintjs/icons";
 
 interface IStatusBarProps {
     webAPIStatus: 'connecting' | 'open' | 'error' | 'closed' | null;
@@ -126,27 +127,27 @@ class StatusBar extends React.Component<IStatusBarProps & IStatusBarDispatch & D
     }
 
     private renderBackendStatus() {
-        let iconName = null;
+        let icon: IconName = null;
         let tooltipText = null;
         if (this.props.webAPIStatus === 'connecting') {
-            iconName = "pt-icon-link";
-            tooltipText = "Connecting";
+            icon = 'link';
+            tooltipText = 'Connecting';
         } else if (this.props.webAPIStatus === 'open') {
-            iconName = "pt-icon-link";
-            tooltipText = "Connected";
+            icon = 'link';
+            tooltipText = 'Connected';
         } else if (this.props.webAPIStatus === 'error') {
-            iconName = "pt-icon-offline";
-            tooltipText = "Error";
+            icon = 'offline';
+            tooltipText = 'Error';
         } else if (this.props.webAPIStatus === 'closed') {
-            iconName = "pt-icon-offline";
+            icon = 'offline';
             tooltipText = "Closed";
         } else {
-            iconName = "pt-icon-help";
-            tooltipText = "Unknown";
+            icon = 'help';
+            tooltipText = 'Unknown';
         }
         return (
             <Tooltip content={tooltipText} hoverOpenDelay={1500} position={Position.LEFT_TOP}>
-                <span className={`pt-icon-small ${iconName}`}/>
+                <span className={`pt-icon-small ${Classes.iconClass(icon)}`}/>
             </Tooltip>
         );
     };

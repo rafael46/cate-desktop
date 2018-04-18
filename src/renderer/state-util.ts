@@ -13,6 +13,7 @@ import * as Cesium from "cesium";
 import {GeometryWKTGetter} from "./containers/editor/ValueEditor";
 import {entityToGeometryWkt} from "./components/cesium/cesium-util";
 import {SIMPLE_STYLE_DEFAULTS, SimpleStyle} from "../common/geojson-simple-style";
+import { IconName } from "@blueprintjs/icons";
 
 export const AUTO_LAYER_ID = 'auto';
 export const COUNTRIES_LAYER_ID = 'countries';
@@ -142,13 +143,13 @@ export function getLayerDisplayName(layer: LayerState): string {
     return layer.id;
 }
 
-export function getLayerTypeIconName(layer: LayerState): string {
+export function getLayerTypeIcon(layer: LayerState): IconName {
     if (isVectorLayer(layer)) {
-        return "pt-icon-map-marker";
+        return "map-marker";
     } else if (layer.type == "Image" || layer.type === "VariableImage") {
-        return "pt-icon-layout-grid"; // "pt-icon-helper-management" also good
+        return "layout-grid"; // "helper-management" also good
     }
-    return "pt-icon-layer";
+    return "layer";
 }
 
 export function findResource(resources: ResourceState[], ref: ResourceRefState): ResourceState | null {
@@ -296,7 +297,7 @@ export function newWorldView(): ViewState<WorldViewDataState> {
         title: `World (${viewNumber})`,
         id: genSimpleId('world-'),
         type: 'world',
-        iconName: "pt-icon-globe",
+        icon: "globe",
         data: newInitialWorldViewData(),
     };
 }
@@ -307,7 +308,7 @@ export function newFigureView(resource: ResourceState): ViewState<FigureViewData
         title: getFigureViewTitle(resource.name),
         id: `fig-${resource.id}`,
         type: 'figure',
-        iconName: "pt-icon-timeline-area-chart",
+        icon: "timeline-area-chart",
         data: newInitialFigureViewData(resource.id),
     };
 }
@@ -321,7 +322,7 @@ export function newAnimationView(resource: ResourceState): ViewState<AnimationVi
         title: getAnimationViewTitle(resource.name),
         id: `anim-${resource.id}`,
         type: 'animation',
-        iconName: "pt-icon-play",
+        icon: "play",
         data: newInitialAnimationViewData(resource.id),
     };
 }
@@ -335,7 +336,7 @@ export function newTableView(resName: string, varName: string): ViewState<TableV
         title: varName ? `${resName}.${varName}` : resName,
         id: genSimpleId('table-'),
         type: 'table',
-        iconName: "pt-icon-th",
+        icon: "th",
         data: newInitialTableViewData(resName, varName),
     };
 }

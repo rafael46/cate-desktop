@@ -1,33 +1,33 @@
 import * as React from 'react';
 import GlobeView from './GlobeView'
-import FigureView from "./FigureView";
-import TableView from "./TableView";
-import DataSourcesPanel from "./DataSourcesPanel";
-import OperationsPanel from "./OperationsPanel";
-import WorkspacePanel from "./WorkspacePanel";
-import VariablePanel from "./VariablesPanel";
-import PlacemarksPanel from "./PlacemarksPanel";
-import ViewPanel from "./ViewPanel";
-import TaskPanel from "./TasksPanel";
-import StatusBar from "./StatusBar";
-import LayersPanel from "./LayersPanel";
-import StylesPanel from "./StylesPanel";
-import NewWorkspaceDialog from "./NewWorkspaceDialog";
-import SaveWorkspaceAsDialog from "./SaveWorkspaceAsDialog";
-import PreferencesDialog from "./PreferencesDialog";
-import {PanelContainer, PanelContainerLayout} from "../components/PanelContainer";
-import {Panel} from "../components/Panel";
-import {connect, Dispatch} from "react-redux";
-import {State, WorldViewDataState, FigureViewDataState, TableViewDataState, AnimationViewDataState} from "../state";
-import * as actions from "../actions";
-import * as selectors from "../selectors";
-import {ViewManager, ViewRenderMap} from "../components/ViewManager";
-import {ViewLayoutState, ViewState, ViewPath, SplitDir} from "../components/ViewState";
-import {CSSProperties} from "react";
-import OperationStepDialog from "./OperationStepDialog";
-import {NEW_CTX_OPERATION_STEP_DIALOG_ID} from "./operation-step-dialog-ids";
-import AnimationView from "./AnimationView";
-import JobFailureDialog from "./JobFailureDialog";
+import FigureView from './FigureView';
+import TableView from './TableView';
+import DataSourcesPanel from './DataSourcesPanel';
+import OperationsPanel from './OperationsPanel';
+import WorkspacePanel from './WorkspacePanel';
+import VariablePanel from './VariablesPanel';
+import PlacemarksPanel from './PlacemarksPanel';
+import ViewPanel from './ViewPanel';
+import TaskPanel from './TasksPanel';
+import StatusBar from './StatusBar';
+import LayersPanel from './LayersPanel';
+import StylesPanel from './StylesPanel';
+import NewWorkspaceDialog from './NewWorkspaceDialog';
+import SaveWorkspaceAsDialog from './SaveWorkspaceAsDialog';
+import PreferencesDialog from './PreferencesDialog';
+import { PanelContainer, PanelContainerLayout } from '../components/PanelContainer';
+import { Panel } from '../components/Panel';
+import { connect, Dispatch } from 'react-redux';
+import { State, WorldViewDataState, FigureViewDataState, TableViewDataState, AnimationViewDataState } from '../state';
+import * as actions from '../actions';
+import * as selectors from '../selectors';
+import { ViewManager, ViewRenderMap } from '../components/ViewManager';
+import { ViewLayoutState, ViewState, ViewPath, SplitDir } from '../components/ViewState';
+import { CSSProperties } from 'react';
+import OperationStepDialog from './OperationStepDialog';
+import { NEW_CTX_OPERATION_STEP_DIALOG_ID } from './operation-step-dialog-ids';
+import AnimationView from './AnimationView';
+import JobFailureDialog from './JobFailureDialog';
 
 
 function renderWorldView(view: ViewState<WorldViewDataState>) {
@@ -63,25 +63,25 @@ interface IDispatch {
 //noinspection JSUnusedLocalSymbols
 export default class ApplicationPage extends React.PureComponent<null, null> {
     static readonly ROOT_DIV_STYLE: CSSProperties = {
-        display: "flex",
-        flexFlow: "column nowrap",
-        width: "100%",
-        height: "100%",
-        overflow: "hidden"
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden'
     };
     static readonly MAIN_DIV_STYLE: CSSProperties = {
-        display: "flex",
-        flexFlow: "row nowrap",
-        flex: "auto",
-        height: "100%",
-        overflow: "hidden"
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        flex: 'auto',
+        height: '100%',
+        overflow: 'hidden'
     };
     static readonly CREDITS_DIV_STYLE: CSSProperties = {
-        minWidth: "10em",
-        minHeight: "4em",
-        position: "relative",
-        overflow: "auto",
-        display: "none"
+        minWidth: '10em',
+        minHeight: '4em',
+        position: 'relative',
+        overflow: 'auto',
+        display: 'none'
     };
 
     render() {
@@ -157,14 +157,15 @@ class _LeftPanel extends React.PureComponent<ILeftPanelProps & IDispatch, null> 
                             onSelectedTopPanelChange={this.onSelectedLeftTopPanelChange}
                             onSelectedBottomPanelChange={this.onSelectedLeftBottomPanelChange}
             >
-                <Panel id="dataSources" position="top" iconName="pt-icon-database" title="Data Sources"
+                <Panel id="dataSources" position="top" icon="database" title="Data Sources"
                        body={<DataSourcesPanel/>}/>
-                <Panel id="operations" position="bottom" iconName="pt-icon-function" title="Operations"
+                <Panel id="operations" position="bottom" icon="function" title="Operations"
                        body={<OperationsPanel/>}/>
             </PanelContainer>
         );
     }
 }
+
 const LeftPanel = connect(mapStateToPropsLeft)(_LeftPanel);
 
 interface IRightPanelProps {
@@ -215,24 +216,25 @@ class _RightPanel extends React.PureComponent<IRightPanelProps & IDispatch, null
                             onSelectedTopPanelChange={this.onSelectedRightTopPanelChange}
                             onSelectedBottomPanelChange={this.onSelectedRightBottomPanelChange}
             >
-                <Panel id="workspace" position="top" iconName="pt-icon-flows" title="Workspace"
+                <Panel id="workspace" position="top" icon="flows" title="Workspace"
                        body={<WorkspacePanel/>}/>
-                <Panel id="layers" position="top" iconName="pt-icon-layers" title="Layers"
+                <Panel id="layers" position="top" icon="layers" title="Layers"
                        body={<LayersPanel/>}/>
-                <Panel id="placemarks" position="top" iconName="pt-icon-map-marker" title="Places"
+                <Panel id="placemarks" position="top" icon="map-marker" title="Places"
                        body={<PlacemarksPanel/>}/>
-                <Panel id="variables" position="bottom" iconName="pt-icon-variable" title="Variables"
+                <Panel id="variables" position="bottom" icon="variable" title="Variables"
                        body={<VariablePanel/>}/>
-                <Panel id="style" position="bottom" iconName="pt-icon-style" title="Styles"
+                <Panel id="style" position="bottom" icon="style" title="Styles"
                        body={<StylesPanel/>}/>
-                <Panel id="view" position="bottom" iconName="pt-icon-eye-open" title="View"
+                <Panel id="view" position="bottom" icon="eye-open" title="View"
                        body={<ViewPanel/>}/>
-                <Panel id="tasks" position="bottom" iconName="pt-icon-play" title="Tasks"
+                <Panel id="tasks" position="bottom" icon="play" title="Tasks"
                        body={<TaskPanel/>}/>
             </PanelContainer>
         );
     }
 }
+
 const RightPanel = connect(mapStateToPropsRight)(_RightPanel);
 
 interface IViewManagerPanelProps {
@@ -250,7 +252,7 @@ function mapStateToPropsView(state: State): IViewManagerPanelProps {
 }
 
 class _CenterPanel extends React.PureComponent<IViewManagerPanelProps & IDispatch, null> {
-    static readonly DIV_STYLE: CSSProperties = {flex: "auto", height: "100%", overflow: "hidden"};
+    static readonly DIV_STYLE: CSSProperties = {flex: 'auto', height: '100%', overflow: 'hidden'};
 
     constructor(props: IViewManagerPanelProps & IDispatch) {
         super(props);
@@ -274,7 +276,7 @@ class _CenterPanel extends React.PureComponent<IViewManagerPanelProps & IDispatc
         this.props.dispatch(actions.closeAllViews(viewPath));
     }
 
-    onMoveView(sourceViewId: string, placement: "before" | "after", targetViewId: string) {
+    onMoveView(sourceViewId: string, placement: 'before' | 'after', targetViewId: string) {
         this.props.dispatch(actions.moveView(sourceViewId, placement, targetViewId));
     }
 
@@ -294,7 +296,7 @@ class _CenterPanel extends React.PureComponent<IViewManagerPanelProps & IDispatc
                              views={this.props.views}
                              activeView={this.props.activeView}
                              noViewsDescription="You can create new views from the VIEW panel."
-                             noViewsVisual="pt-icon-eye-open"
+                             noViewsVisual="eye-open"
                              onSelectView={this.onSelectView}
                              onCloseView={this.onCloseView}
                              onCloseAllViews={this.onCloseAllViews}
@@ -306,6 +308,7 @@ class _CenterPanel extends React.PureComponent<IViewManagerPanelProps & IDispatc
         );
     }
 }
+
 const CenterPanel = connect(mapStateToPropsView)(_CenterPanel);
 
 

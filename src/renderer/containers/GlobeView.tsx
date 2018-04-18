@@ -6,7 +6,7 @@ import {
 } from "../state";
 import * as selectors from "../selectors";
 import * as actions from "../actions";
-import {NO_WEB_GL} from "../messages";
+import {NO_WEB_GL} from "../components/messages";
 import {EMPTY_ARRAY, EMPTY_OBJECT} from "../selectors";
 import {
     CanvasPosition, CesiumGlobe, GeographicPosition, ImageLayerDescriptor,
@@ -134,14 +134,14 @@ class GlobeView extends React.Component<IGlobeViewProps & IGlobeViewOwnProps & D
             const properties = this.newPlacemarkProperties();
             const action = actions.addPointPlacemark(geoPos.longitude, geoPos.latitude, properties);
             menuItems.push(<MenuItem key={key}
-                                     iconName="map-marker"
+                                     icon="map-marker"
                                      text="Place point marker here"
                                      onClick={() => this.props.dispatch(action)}/>);
             key++;
         }
 
         if (wkt) {
-            menuItems.push(<MenuItem key={key} iconName="clipboard" text="Copy geometry WKT"
+            menuItems.push(<MenuItem key={key} icon="clipboard" text="Copy geometry WKT"
                                      onClick={() => actions.copyTextToClipboard(wkt)}/>);
             key++;
         }
@@ -177,7 +177,7 @@ class GlobeView extends React.Component<IGlobeViewProps & IGlobeViewOwnProps & D
                         const action = actions.invokeCtxOperation(operation, inputAssignments);
                         const text = `${operation.name}()`;
                         menuItems.push(<MenuItem key={key}
-                                                 iconName="function" text={text}
+                                                 icon="function" text={text}
                                                  onClick={() => this.props.dispatch(action)}/>);
                         key++;
                     }

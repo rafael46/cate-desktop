@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { ModalDialog } from "../components/ModalDialog";
+import { ModalDialog } from '../components/ModalDialog';
 import {
     ERROR_CODE_INVALID_PARAMS,
-    getJobFailureIconName, getJobFailureTitle,
     JobFailure
-} from "../webapi";
-import { Button, Checkbox, Collapse, IconName, Label } from "@blueprintjs/core";
-import * as selectors from "../selectors";
-import { State } from "../state";
-import { connect, DispatchProp } from "react-redux";
-import * as actions from "../actions";
+} from '../webapi';
+import { Button, Checkbox, Collapse, IconName, Label } from '@blueprintjs/core';
+import * as selectors from '../selectors';
+import { State } from '../state';
+import { connect, DispatchProp } from 'react-redux';
+import * as actions from '../actions';
+import { getJobFailureIcon, getJobFailureTitle } from '../components/job-failure-util';
 
 interface IJobFailureDialogProps {
     isOpen: boolean;
@@ -84,11 +84,11 @@ class JobFailureDialog extends React.Component<DispatchProp<State> & IJobFailure
         if (!this.props.isOpen || !this.props.jobFailure) {
             return null;
         }
-        const iconName = getJobFailureIconName(this.props.jobFailure) as IconName;
+        const icon = getJobFailureIcon(this.props.jobFailure) as IconName;
         const title = getJobFailureTitle(this.props.jobFailure);
         return (
             <ModalDialog isOpen={this.props.isOpen}
-                         iconName={iconName}
+                         icon={icon}
                          title={title}
                          onConfirm={this.handleConfirm}
                          onCancel={this.handleCancel}
@@ -117,7 +117,7 @@ class JobFailureDialog extends React.Component<DispatchProp<State> & IJobFailure
         if (this.props.jobFailure.data && this.props.jobFailure.data.traceback) {
             traceback = (
                 <div style={{marginTop: '0.5em'}}>
-                    <Button onClick={this.handleShowDetails}>{this.state.showDetails ? "Hide" : "Show"} Details</Button>
+                    <Button onClick={this.handleShowDetails}>{this.state.showDetails ? 'Hide' : 'Show'} Details</Button>
                     <Collapse isOpen={this.state.showDetails}>
                         <pre className="user-selectable"
                              style={{overflow: 'auto', height: '20em'}}>{this.props.jobFailure.data.traceback}</pre>

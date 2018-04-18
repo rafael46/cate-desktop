@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {AnchorButton, Switch, Tabs2, Tab2} from "@blueprintjs/core";
+import {AnchorButton, Switch, Tabs, Tab} from "@blueprintjs/core";
 import {State, SessionState} from "../state";
 import {connect, DispatchProp} from "react-redux";
 import * as actions from "../actions";
@@ -8,7 +8,7 @@ import {TextField} from "../components/field/TextField";
 import {OpenDialogProperty, showMessageBox} from "../actions";
 import * as deepEqual from 'deep-equal';
 import {ModalDialog} from "../components/ModalDialog";
-import {showToast} from "../toast";
+import {showToast} from "../components/toast";
 import {isDefined} from "../../common/types";
 
 interface IPreferencesDialogProps {
@@ -79,7 +79,7 @@ class PreferencesDialog extends React.Component<IPreferencesDialogProps & Dispat
             <ModalDialog
                 isOpen={this.props.isOpen}
                 title={PreferencesDialog.DIALOG_TITLE}
-                iconName="confirm"
+                icon="confirm"
                 onCancel={this.onCancel}
                 onConfirm={this.onConfirm}
                 canConfirm={this.canConfirm}
@@ -94,11 +94,11 @@ class PreferencesDialog extends React.Component<IPreferencesDialogProps & Dispat
         }
 
         return (
-            <Tabs2 id="preferences">
-                <Tab2 id="g" title="General" panel={this.renderGeneralPanel()}/>
-                <Tab2 id="dm" title="Data Management" panel={this.renderDataManagementPanel()}/>
-                <Tab2 id="pc" title="Proxy Configuration" panel={this.renderProxyConfigurationPanel()}/>
-            </Tabs2>
+            <Tabs id="preferences">
+                <Tab id="g" title="General" panel={this.renderGeneralPanel()}/>
+                <Tab id="dm" title="Data Management" panel={this.renderDataManagementPanel()}/>
+                <Tab id="pc" title="Proxy Configuration" panel={this.renderProxyConfigurationPanel()}/>
+            </Tabs>
         );
     }
 

@@ -92,7 +92,7 @@ class WorkflowStepPropertiesDialog extends React.Component<IWorkflowStepProperti
             <ModalDialog
                 isOpen={this.props.isOpen}
                 title={DIALOG_TITLE}
-                iconName="edit"
+                icon="edit"
                 onCancel={this.onCancel}
                 onConfirm={this.onConfirm}
                 canConfirm={this.canConfirm}

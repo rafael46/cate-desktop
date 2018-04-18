@@ -7,7 +7,7 @@ import {Cell, Column, Table} from "@blueprintjs/table";
 import * as assert from "../../common/assert";
 import * as actions from "../actions";
 import * as selectors from "../selectors";
-import {LOADING_TABLE_DATA_FAILED, NO_TABLE_DATA} from "../messages";
+import {LOADING_TABLE_DATA_FAILED, NO_TABLE_DATA} from "../components/messages";
 import {CSSProperties} from "react";
 
 interface ITableViewOwnProps {
@@ -93,11 +93,11 @@ class TableView extends React.PureComponent<ITableViewProps & ITableViewOwnProps
             const renderCell = (row: number, col: number) => {
                 return (<Cell>{getData(row, col)}</Cell>);
             };
-            children.push(<Column key={i} name={columnNames[i]} renderCell={renderCell}/>);
+            children.push(<Column key={i} name={columnNames[i]} cellRenderer={renderCell}/>);
         }
 
         return (<Table numRows={dataRows.length}
-                       isRowHeaderShown={true}
+                       enableRowHeader={true}
                        getCellClipboardData={getData}
                        children={children as any}/>);
     }

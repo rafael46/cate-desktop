@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Colors, ContextMenuTarget, Menu, MenuItem, Popover, Position} from "@blueprintjs/core";
+import { Classes, Colors, ContextMenuTarget, Menu, MenuItem, Popover, Position } from '@blueprintjs/core';
 import {connect, Dispatch} from 'react-redux';
 import {State, PlacemarkCollection, Placemark} from "../state";
 import {ListBox, ListBoxSelectionMode} from "../components/ListBox";
@@ -9,7 +9,7 @@ import {ContentWithDetailsPanel} from "../components/ContentWithDetailsPanel";
 import LayerSourcesDialog from "./LayerSourcesDialog";
 import {ScrollablePanelContent} from "../components/ScrollableContent";
 import {ViewState} from "../components/ViewState";
-import {NO_PLACE_SELECTED, NO_PLACES} from "../messages";
+import {NO_PLACE_SELECTED, NO_PLACES} from "../components/messages";
 import {FieldValue} from "../components/field/Field";
 import {TextField} from "../components/field/TextField";
 import {geoJsonToText, geometryGeoJsonToCsv, geometryGeoJsonToGeometryWkt, isBox} from "../../common/geometry-util";
@@ -18,6 +18,7 @@ import {isBoolean} from "../../common/types";
 import {NumericField, NumericFieldValue} from "../components/field/NumericField";
 import {ToolButton} from "../components/ToolButton";
 import { CSSProperties } from "react";
+import { IconNames } from '@blueprintjs/icons';
 
 interface IPlacemarksPanelDispatch {
     dispatch: Dispatch<State>;
@@ -194,40 +195,40 @@ class PlacemarksPanel extends React.Component<IPlacemarksPanelProps & IPlacemark
                 <ToolButton tooltipContent="New marker"
                             tooltipPosition={Position.LEFT}
                             onClick={this.handleNewPointToolButtonClicked}
-                            iconName="dot"
+                            icon="dot"
                             active={isPointToolActive}
                             disabled={false}/>
                 <ToolButton tooltipContent="New polyline"
                             tooltipPosition={Position.LEFT}
                             onClick={this.handleNewPolylineToolButtonClicked}
-                            iconName="slash"
+                            icon="slash"
                             active={isPolylineToolActive}
                             disabled={false}/>
                 <ToolButton tooltipContent="New polygon"
                             tooltipPosition={Position.LEFT}
                             onClick={this.handleNewPolygonToolButtonClicked}
-                            iconName="polygon-filter"
+                            icon="polygon-filter"
                             active={isPolygonToolActive}
                             disabled={false}/>
                 <ToolButton tooltipContent="New box"
                             tooltipPosition={Position.LEFT}
                             onClick={this.handleNewBoxToolButtonClicked}
-                            iconName="widget"
+                            icon="widget"
                             active={isBoxToolActive}
                             disabled={false}/>
                 <ToolButton tooltipContent="Remove selected place"
                             tooltipPosition={Position.LEFT}
                             disabled={!this.props.selectedPlacemarkId}
                             onClick={this.handleRemovePlacemarkButtonClicked}
-                            iconName="remove"/>
+                            icon="remove"/>
                 <ToolButton tooltipContent="Locate selected place in view"
                             tooltipPosition={Position.LEFT}
                             disabled={!this.props.selectedPlacemarkId}
                             onClick={this.handleLocatePlacemarkButtonClicked}
-                            iconName="locate"/>
+                            icon="locate"/>
                 <Popover position={Position.LEFT}>
                     <ToolButton disabled={!this.props.selectedPlacemarkId}
-                                iconName="clipboard"/>
+                                icon="clipboard"/>
                     <Menu>
                         <MenuItem onClick={this.handleCopySelectedPlacemarkAsCsv} text="Copy as CSV"/>
                         <MenuItem onClick={this.handleCopySelectedPlacemarkAsWkt} text="Copy as WKT"/>
@@ -393,20 +394,20 @@ class PlacemarkItem extends React.PureComponent<IPlacemarkItemProps, {}> {
         const visible = placemark.properties['visible'];
         const title = placemark.properties['title'];
         const geometry = placemark.geometry;
-        let icon;
+        let iconClass;
         let info;
         if (geometry.type === "Point") {
             const position = geometry.coordinates;
             info = ` ${position[0].toFixed(3)}, ${position[1].toFixed(3)}`;
-            icon = "pt-icon-dot";
+            iconClass = Classes.iconClass(IconNames.DOT);
         } else if (geometry.type === "LineString") {
             const coordinates = geometry.coordinates;
             info = ` ${coordinates.length} positions`;
-            icon = "pt-icon-slash";
+            iconClass = Classes.iconClass(IconNames.SLASH);
         } else if (geometry.type === "Polygon") {
             const ring = geometry.coordinates[0] as any;
             info = ` ${ring.length - 1} positions`;
-            icon = isBox(geometry) ? "pt-icon-widget" : "pt-icon-polygon-filter";
+            iconClass = Classes.iconClass(isBox(geometry) ? IconNames.WIDGET : IconNames.POLYGON_FILTER);
         }
 
         return (
@@ -415,7 +416,7 @@ class PlacemarkItem extends React.PureComponent<IPlacemarkItemProps, {}> {
                        checked={isBoolean(visible) ? visible : true}
                        onChange={this.handleVisibilityChanged}
                 />
-                <span style={PlacemarkItem.ICON_STYLE} className={icon}/>
+                <span style={PlacemarkItem.ICON_STYLE} className={iconClass}/>
                 <span style={PlacemarkItem.NAME_STYLE}>{title}</span>
                 <span style={PlacemarkItem.INFO_STYLE}>{info}</span>
             </div>

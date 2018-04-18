@@ -1,32 +1,30 @@
 import * as React from "react";
-import {connect} from "react-redux";
-import {State, DataStoreState, DataSourceState} from "../state";
+import { connect } from "react-redux";
+import { State, DataStoreState, DataSourceState } from "../state";
 import {
     AnchorButton,
     InputGroup,
     Classes,
     Tag,
-    Tabs2,
-    Tab2,
-    Tooltip,
+    Tabs,
+    Tab,
     Checkbox,
     Colors,
-    Position
 } from "@blueprintjs/core";
-import {Table, Column, Cell, TruncatedFormat} from "@blueprintjs/table";
-import {ListBox, ListBoxSelectionMode} from "../components/ListBox";
-import {Card} from "../components/Card";
-import {ScrollablePanelContent} from "../components/ScrollableContent";
-import {ContentWithDetailsPanel} from "../components/ContentWithDetailsPanel";
+import { Table, Column, Cell, TruncatedFormat } from "@blueprintjs/table";
+import { ListBox, ListBoxSelectionMode } from "../components/ListBox";
+import { Card } from "../components/Card";
+import { ScrollablePanelContent } from "../components/ScrollableContent";
+import { ContentWithDetailsPanel } from "../components/ContentWithDetailsPanel";
 import DownloadDatasetDialog from "./DownloadDataSourceDialog";
 import OpenDatasetDialog from "./OpenDatasetDialog";
 import AddDatasetDialog from "./AddDatasetDialog";
 import RemoveDatasetDialog from "./RemoveDatasetDialog";
 import * as actions from "../actions";
 import * as selectors from "../selectors";
-import {NO_DATA_STORES_FOUND, NO_DATA_SOURCES_FOUND, NO_LOCAL_DATA_SOURCES} from "../messages";
-import {CSSProperties} from "react";
-import {ToolButton} from "../components/ToolButton";
+import { NO_DATA_STORES_FOUND, NO_DATA_SOURCES_FOUND, NO_LOCAL_DATA_SOURCES } from "../components/messages";
+import { CSSProperties } from "react";
+import { ToolButton } from "../components/ToolButton";
 
 
 interface IDataSourcesPanelProps {
@@ -174,7 +172,7 @@ class DataSourcesPanel extends React.Component<IDataSourcesPanelProps & IDataSou
                                 className="pt-intent-primary"
                                 onClick={this.handleShowOpenDatasetDialog}
                                 disabled={!canOpen}
-                                iconName="folder-shared-open"/>
+                                icon="folder-shared-open"/>
                 );
             } else {
                 primaryAction = (
@@ -182,7 +180,7 @@ class DataSourcesPanel extends React.Component<IDataSourcesPanelProps & IDataSou
                                 className="pt-intent-primary"
                                 onClick={this.handleShowDownloadDataSourceDialog}
                                 disabled={!canDownload}
-                                iconName="cloud-download"/>
+                                icon="cloud-download"/>
                 );
             }
             const actionComponent = (
@@ -191,11 +189,11 @@ class DataSourcesPanel extends React.Component<IDataSourcesPanelProps & IDataSou
                                 className={(isDynamicLocalStore && !hasDataSources) ? "pt-intent-primary" : ""}
                                 onClick={this.handleAddDatasetDialog}
                                 disabled={!canAdd}
-                                iconName="add"/>
+                                icon="add"/>
                     <ToolButton tooltipContent="Remove local data source"
                                 onClick={this.handleRemoveDatasetDialog}
                                 disabled={!canRemove}
-                                iconName="trash"/>
+                                icon="trash"/>
                     {primaryAction}
                     <AddDatasetDialog/>
                     <RemoveDatasetDialog/>
@@ -241,7 +239,7 @@ class DataSourcesPanel extends React.Component<IDataSourcesPanelProps & IDataSou
 
     private renderDataSourceFilterExprInput() {
         const resultsTag = (
-            <Tag className={Classes.MINIMAL} onRemove={(event) => this.props.setDataSourceFilterExpr("")}>
+            <Tag className={Classes.MINIMAL} onRemove={() => this.props.setDataSourceFilterExpr("")}>
                 {this.props.filteredDataSources && this.props.filteredDataSources.length}
             </Tag>
         );
@@ -249,7 +247,7 @@ class DataSourcesPanel extends React.Component<IDataSourcesPanelProps & IDataSou
         return (<div style={{paddingTop: 4, paddingBottom: 2}}>
             <InputGroup
                 disabled={false}
-                leftIconName="filter"
+                leftIcon="filter"
                 onChange={(event) => this.props.setDataSourceFilterExpr(event.target.value)}
                 placeholder="Find data source"
                 rightElement={resultsTag}
@@ -511,7 +509,8 @@ class DataSourceDetails extends React.PureComponent<IDataSourceDetailsProps, nul
 
         function renderUnit(rowIndex: number) {
             const variable = variables[rowIndex];
-            return (<Cell><TruncatedFormat className="user-selectable">{variable.units || '-'}</TruncatedFormat></Cell>);
+            return (
+                <Cell><TruncatedFormat className="user-selectable">{variable.units || '-'}</TruncatedFormat></Cell>);
         }
 
         function getCellClipboardData(row: number, col: number) {
@@ -523,10 +522,10 @@ class DataSourceDetails extends React.PureComponent<IDataSourceDetailsProps, nul
             id: "var",
             element: (
                 <Table numRows={variables.length}
-                       isRowHeaderShown={false}
+                       enableRowHeader={false}
                        getCellClipboardData={getCellClipboardData}>
-                    <Column name="Name" renderCell={renderName}/>
-                    <Column name="Units" renderCell={renderUnit}/>
+                    <Column name="Name" cellRenderer={renderName}/>
+                    <Column name="Units" cellRenderer={renderUnit}/>
                 </Table>
             )
         };
@@ -552,10 +551,10 @@ class DataSourceDetails extends React.PureComponent<IDataSourceDetailsProps, nul
             id: "meta",
             element: (
                 <Table numRows={metaInfoKeys.length}
-                       isRowHeaderShown={false}
+                       enableRowHeader={false}
                        getCellClipboardData={getCellClipboardData}>
-                    <Column name="Key" renderCell={renderKey}/>
-                    <Column name="Value" renderCell={renderValue}/>
+                    <Column name="Key" cellRenderer={renderKey}/>
+                    <Column name="Value" cellRenderer={renderValue}/>
                 </Table>
             )
         };
@@ -587,9 +586,9 @@ class DataSourceDetails extends React.PureComponent<IDataSourceDetailsProps, nul
             return details[0].element;
         } else if (details.length > 1) {
             return (
-                <Tabs2 id="dsDetails" renderActiveTabPanelOnly={true}>
-                    {details.map(d => <Tab2 key={d.id} id={d.id} title={d.title} panel={d.element}/>)}
-                </Tabs2>
+                <Tabs id="dsDetails" renderActiveTabPanelOnly={true}>
+                    {details.map(d => <Tab key={d.id} id={d.id} title={d.title} panel={d.element}/>)}
+                </Tabs>
             );
         } else {
             return (
@@ -598,7 +597,6 @@ class DataSourceDetails extends React.PureComponent<IDataSourceDetailsProps, nul
                 </Card>
             );
         }
-
     }
 }
 

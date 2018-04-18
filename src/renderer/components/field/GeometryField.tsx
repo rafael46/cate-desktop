@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {AnchorButton} from "@blueprintjs/core";
-import {toTextValue} from "./Field";
-import {TextField, TextFieldValue} from "./TextField";
-import {GeometryDialog} from "../GeometryDialog";
-import {GeometryType, validateGeometryValue} from "../../../common/geometry-util";
-import {GeometryWKTGetter} from "../../containers/editor/ValueEditor";
+import { AnchorButton, Classes } from '@blueprintjs/core';
+import { IconNames } from '@blueprintjs/icons';
+import { toTextValue } from './Field';
+import { TextField, TextFieldValue } from './TextField';
+import { GeometryDialog } from '../GeometryDialog';
+import { GeometryType, validateGeometryValue } from '../../../common/geometry-util';
+import { GeometryWKTGetter } from '../../containers/editor/ValueEditor';
 
 
 interface IGeometryFieldProps {
@@ -34,7 +35,7 @@ export class GeometryField extends React.Component<IGeometryFieldProps, IGeometr
         this.setGeometryWKT = this.setGeometryWKT.bind(this);
     }
 
-    validateGeometryText(value: string  | null) {
+    validateGeometryText(value: string | null) {
         validateGeometryValue(value, this.props.geometryType);
     }
 
@@ -44,7 +45,7 @@ export class GeometryField extends React.Component<IGeometryFieldProps, IGeometr
             wkt = this.props.geometryWKTGetter && this.props.geometryWKTGetter();
         } catch (error) {
             console.error(error);
-            wkt = "Error: " + error;
+            wkt = 'Error: ' + error;
         }
         this.props.onChange({textValue: wkt, value: wkt});
     }
@@ -53,9 +54,9 @@ export class GeometryField extends React.Component<IGeometryFieldProps, IGeometr
         let placeholder = this.props.placeholder;
         if (!placeholder) {
             if (this.props.geometryType === 'Point') {
-                placeholder = "<lon>,<lat> or Point WKT";
+                placeholder = '<lon>,<lat> or Point WKT';
             } else if (this.props.geometryType === 'Polygon') {
-                placeholder = "<lon1>,<lat1>,<lon2>,<lat2> or Polygon WKT";
+                placeholder = '<lon1>,<lat1>,<lon2>,<lat2> or Polygon WKT';
             } else {
                 placeholder = `Enter ${this.props.geometryType} WKT`;
             }
@@ -72,7 +73,7 @@ export class GeometryField extends React.Component<IGeometryFieldProps, IGeometr
                     style={GeometryField.TEXT_FIELD_STYLE}
                 />
 
-                <AnchorButton className="pt-intent-primary pt-icon-selection" style={GeometryField.BUTTON_STYLE}
+                <AnchorButton className={"pt-intent-primary " + Classes.iconClass(IconNames.SELECTION)} style={GeometryField.BUTTON_STYLE}
                               disabled={!this.props.geometryWKTGetter}
                               onClick={this.setGeometryWKT}/>
 

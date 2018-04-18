@@ -12,7 +12,7 @@ import {
     VectorLayerState
 } from '../state';
 import * as React from 'react';
-import {NO_ENTITY_FOR_STYLE, NO_LAYER_FOR_STYLE} from '../messages';
+import {NO_ENTITY_FOR_STYLE, NO_LAYER_FOR_STYLE} from '../components/messages';
 import {SubPanelHeader} from '../components/SubPanelHeader';
 import {
     AnchorButton,
@@ -223,7 +223,7 @@ class StylesPanel extends React.Component<IStylesPanelProps & DispatchProp<State
                                            uncontrolled={true}
                         />
                         <ToolButton tooltipContent="Compute valid min/max" tooltipPosition={Position.LEFT}
-                                    className="pt-intent-primary" iconName="arrows-horizontal"
+                                    className="pt-intent-primary" icon="arrows-horizontal"
                                     style={{flex: 'none', marginTop: '5px'}}
                                     disabled={this.props.isComputingVariableStatistics}
                                     onClick={this.handleUpdateDisplayStatistics}/>
@@ -282,7 +282,7 @@ class StylesPanel extends React.Component<IStylesPanelProps & DispatchProp<State
                     <Slider min={min}
                             max={max}
                             stepSize={(max - min) / 10.}
-                            renderLabel={false}
+                            labelRenderer={false}
                             value={layer[key]}
                             onChange={(value: number) => handleChangedImageEnhancement(key, value)}/>
                 </div>
@@ -385,7 +385,7 @@ class StylesPanel extends React.Component<IStylesPanelProps & DispatchProp<State
                     <Slider min={0.0}
                             max={1.0}
                             stepSize={0.05}
-                            renderLabel={false}
+                            labelRenderer={false}
                             value={this.props.vectorStyle.fillOpacity}
                             onChange={this.handleChangedFillOpacity}
                     />
@@ -446,7 +446,7 @@ class StylesPanel extends React.Component<IStylesPanelProps & DispatchProp<State
                     <Slider min={0.0}
                             max={1.0}
                             stepSize={0.05}
-                            renderLabel={false}
+                            labelRenderer={false}
                             value={this.props.vectorStyle.strokeOpacity}
                             onChange={this.handleChangedStrokeOpacity}
                     />
@@ -536,7 +536,7 @@ class StylesPanel extends React.Component<IStylesPanelProps & DispatchProp<State
                 max={max}
                 stepSize={(max - min) / 100.}
                 labelStepSize={max - min}
-                renderLabel={(x: number) => formatNumber(x, fractionDigits)}
+                labelRenderer={(x: number) => formatNumber(x, fractionDigits)}
                 onChange={this.handleChangedDisplayRange}
                 value={[layer.displayMin, layer.displayMax]}
             />

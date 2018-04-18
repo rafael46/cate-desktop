@@ -1,6 +1,7 @@
 import * as React from 'react'
 import ReactChild = React.ReactChild;
 import {
+    Classes,
     Colors,
     Position,
     Tooltip,
@@ -9,7 +10,8 @@ import {
     // Menu,
     // PopoverInteractionKind,
     // Popover
-} from "@blueprintjs/core";
+} from '@blueprintjs/core';
+import { IconNames, IconName } from "@blueprintjs/icons";
 import {Splitter} from "./Splitter";
 import {CSSProperties} from "react";
 
@@ -304,42 +306,23 @@ export class PanelContainer extends React.PureComponent<IPanelContainerProps, IP
 
 interface IPanelHeaderProps {
     id: string;
-    iconName: string;
+    icon: IconName;
     title: string;
     onClose: () => void;
 }
 
 function PanelHeader(props: IPanelHeaderProps): JSX.Element | null {
     const panelIcon = <span
-        className={"pt-icon-standard " + props.iconName + " cate-panel-header-item"}/>;
+        className={`pt-icon-standard ${Classes.iconClass(props.icon)} cate-panel-header-item`}/>;
     const panelTitle = <span
         className={"cate-panel-text cate-panel-header-item"}>{props.title.toUpperCase()}</span>;
-
-    /*
-        const panelMenu = (
-            <Menu>
-                <MenuItem text="Move up"/>
-                <MenuItem text="Move down"/>
-                <MenuDivider />
-                <MenuItem text="Hide"/>
-            </Menu>
-        );
-
-        const panelMenuIcon = (
-            <Popover content={panelMenu} interactionKind={PopoverInteractionKind.CLICK}>
-                <span className={"pt-icon-standard pt-icon-properties cate-icon-small cate-panel-header-item"}/>
-            </Popover>
-        );
-    */
     const panelCloseIcon = (
-        <span className={"pt-icon-standard pt-icon-cross cate-icon-small cate-panel-header-item"}
+        <span className={`pt-icon-standard ${Classes.iconClass(IconNames.CROSS)} cate-icon-small cate-panel-header-item`}
               onClick={props.onClose}/>);
-
     return (
         <div className="cate-panel-header" style={{flex: "none"}}>
             {panelIcon}
             {panelTitle}
-            {/*{panelMenuIcon}*/}
             {panelCloseIcon}
         </div>
     );
@@ -396,7 +379,7 @@ function PanelBar(props: IPanelBarProps) {
     function renderPanelButton(panel, selectedPanelId: string) {
         const panelId: string = panel.props.id;
         const panelTitle: string = panel.props.title;
-        const panelIconName: string = panel.props.iconName;
+        const panelIcon: IconName = panel.props.icon;
         const selected = panelId === selectedPanelId;
         const style = selected ? PANEL_BAR_ITEM_SELECTED_STYLE : PANEL_BAR_ITEM_NORMAL_STYLE;
         const panelPosition: string = panel.props.position || "top";
@@ -406,7 +389,7 @@ function PanelBar(props: IPanelBarProps) {
                 onClick={onClick}
                 style={style}>
                 <Tooltip content={panelTitle} position={tooltipPos} hoverOpenDelay={1500}>
-                    <span className={"pt-icon-large " + panelIconName}
+                    <span className={"pt-icon-large " + Classes.iconClass(panelIcon)}
                           style={PANEL_BUTTON_STYLE}/>
                 </Tooltip>
             </li>
@@ -471,7 +454,7 @@ function PanelPane(props: IPanelPaneProps) {
             <PanelHeader
                 id={panelId}
                 title={panel.props.title}
-                iconName={panel.props.iconName}
+                icon={panel.props.icon}
                 onClose={() => props.onClose(panelId)}
             />
             <div style={PANEL_BODY_CONTAINER_STYLE}>

@@ -1,21 +1,21 @@
 import * as React from "react";
-import {connect, DispatchProp} from "react-redux";
-import {State, VariableState, ResourceState, SavedLayers, Placemark} from "../state";
+import { connect, DispatchProp } from "react-redux";
+import { State, VariableState, ResourceState, SavedLayers, Placemark } from "../state";
 import * as assert from "../../common/assert";
 import * as actions from "../actions";
 import * as selectors from "../selectors";
-import {ListBox, ListBoxSelectionMode} from "../components/ListBox";
-import {ContentWithDetailsPanel} from "../components/ContentWithDetailsPanel";
-import {LabelWithType} from "../components/LabelWithType";
-import {Position, Colors} from "@blueprintjs/core";
-import {Cell, Column, Table, TruncatedFormat} from "@blueprintjs/table";
-import {ScrollablePanelContent} from "../components/ScrollableContent";
-import {NO_VARIABLES, NO_VARIABLES_EMPTY_RESOURCE} from "../messages";
-import {CSSProperties} from 'react';
+import { ListBox, ListBoxSelectionMode } from "../components/ListBox";
+import { ContentWithDetailsPanel } from "../components/ContentWithDetailsPanel";
+import { LabelWithType } from "../components/LabelWithType";
+import { Position, Colors } from "@blueprintjs/core";
+import { Cell, Column, Table, TruncatedFormat } from "@blueprintjs/table";
+import { ScrollablePanelContent } from "../components/ScrollableContent";
+import { NO_VARIABLES, NO_VARIABLES_EMPTY_RESOURCE } from "../components/messages";
+import { CSSProperties } from 'react';
 import * as Cesium from "cesium";
-import {ToolButton} from "../components/ToolButton";
-import {isSpatialImageVariable, isSpatialVectorVariable} from "../state-util";
-import {isDefinedAndNotNull} from "../../common/types";
+import { ToolButton } from "../components/ToolButton";
+import { isSpatialImageVariable, isSpatialVectorVariable } from "../state-util";
+import { isDefinedAndNotNull } from "../../common/types";
 
 interface IVariablesPanelProps {
     variables: VariableState[];
@@ -192,30 +192,30 @@ class VariablesPanel extends React.Component<IVariablesPanelProps & DispatchProp
             <div className="pt-button-group">
                 <ToolButton tooltipContent="Toggle image layer visibility"
                             tooltipPosition={Position.LEFT}
-                            iconName={this.props.showSelectedVariableLayer ? "eye-open" : "eye-off"}
+                            icon={this.props.showSelectedVariableLayer ? "eye-open" : "eye-off"}
                             onClick={this.handleShowSelectedVariableLayer}/>
                 <ToolButton tooltipContent="Add a new image layer"
                             tooltipPosition={Position.LEFT}
                             disabled={!canAddLayer}
-                            iconName="layer"
+                            icon="layer"
                             onClick={this.handleAddVariableLayer}
                 />
                 <ToolButton tooltipContent="Create a time series plot from selected placemark"
                             tooltipPosition={Position.LEFT}
                             disabled={!canAddTimeSeriesPlot}
-                            iconName="timeline-line-chart"
+                            icon="timeline-line-chart"
                             onClick={this.handleAddVariableTimeSeriesPlot}
                 />
                 <ToolButton tooltipContent="Create a histogram plot"
                             tooltipPosition={Position.LEFT}
                             disabled={!canAddHistogramPlot}
-                            iconName="timeline-bar-chart"
+                            icon="timeline-bar-chart"
                             onClick={this.handleAddVariableHistogramPlot}
                 />
                 <ToolButton tooltipContent={`Show data in table (for sizes < ${maxSize})`}
                             tooltipPosition={Position.LEFT}
                             disabled={!canShowTableView}
-                            iconName="pt-icon-th"
+                            icon="th"
                             onClick={this.handleShowVariableTableView}
                 />
             </div>
@@ -237,9 +237,9 @@ class VariablesPanel extends React.Component<IVariablesPanelProps & DispatchProp
         }
         return (
             <div style={VariablesPanel.DIV_STYLE}>
-                <Table numRows={tableData.length} isRowHeaderShown={false}>
-                    <Column name="Name" renderCell={this.renderAttributeName}/>
-                    <Column name="Value" renderCell={this.renderAttributeValue}/>
+                <Table numRows={tableData.length} enableRowHeader={false}>
+                    <Column name="Name" cellRenderer={this.renderAttributeName}/>
+                    <Column name="Value" cellRenderer={this.renderAttributeValue}/>
                 </Table>
             </div>
         );
