@@ -1,11 +1,11 @@
 import {WebAPIClient} from './webapi';
-import {JobStatus, JobFailure, JobProgress} from "./webapi";
-import {PanelContainerLayout} from "./components/PanelContainer";
-import {ViewLayoutState, ViewState} from "./components/ViewState";
-import {Feature, FeatureCollection, GeoJsonObject, Point} from "geojson";
-import {IconName} from "@blueprintjs/core";
-import {SimpleStyle} from "../common/geojson-simple-style";
-import {GeometryToolType} from "./components/cesium/geometry-tool";
+import {JobStatus, JobFailure, JobProgress} from './webapi';
+import {PanelContainerLayout} from './components/PanelContainer';
+import {ViewLayoutState, ViewState} from './components/ViewState';
+import {Feature, FeatureCollection, GeoJsonObject, Point} from 'geojson';
+import {IconName} from '@blueprintjs/core';
+import {SimpleStyle} from '../common/geojson-simple-style';
+import {GeometryToolType} from './components/cesium/geometry-tool';
 
 /**
  * Interface describing Cate's application state structure.
@@ -314,7 +314,7 @@ export interface ImageLayout {
     tileHeight: number;
 }
 
-export type WorldViewMode = "2D" | "3D";
+export type WorldViewMode = '2D' | '3D';
 
 /**
  * Data object for view type "world".
@@ -378,8 +378,17 @@ export interface TableViewDataState {
     resName: string;
     varName: string | null;
     dataRows: any[] | null;
+    dim1?: string;
+    dim2?: string;
+    coordinateInfo: { [coordinateName: string]: CoordinateInfo } | null;
     error?: any;
     isLoading?: boolean;
+}
+
+export interface CoordinateInfo {
+    offset: number;
+    count: number;
+    size: number;
 }
 
 
@@ -425,10 +434,10 @@ export interface ImageStatisticsState {
     max: number;
 }
 
-export const SPLIT_MODE_OFF = "off";
-export const SPLIT_MODE_LEFT = "left";
-export const SPLIT_MODE_RIGHT = "right";
-export type SplitMode = "off" | "left" | "right";
+export const SPLIT_MODE_OFF = 'off';
+export const SPLIT_MODE_LEFT = 'left';
+export const SPLIT_MODE_RIGHT = 'right';
+export type SplitMode = 'off' | 'left' | 'right';
 
 
 /**
@@ -493,7 +502,7 @@ export interface VectorLayerBase extends LayerState {
      * This object will only contain keys, if an entities style has changed.
      * Default styles come from the SimpleStyle interface of VectorLayerBase.
      */
-    entityStyles?: {[entityId: string]: SimpleStyle};
+    entityStyles?: { [entityId: string]: SimpleStyle };
 }
 
 

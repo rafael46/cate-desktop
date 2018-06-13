@@ -214,7 +214,6 @@ class VariablesPanel extends React.Component<IVariablesPanelProps & DispatchProp
                 />
                 <ToolButton tooltipContent={`Show data in table (for sizes < ${maxSize})`}
                             tooltipPosition={Position.LEFT}
-                            disabled={!canShowTableView}
                             iconName="pt-icon-th"
                             onClick={this.handleShowVariableTableView}
                 />

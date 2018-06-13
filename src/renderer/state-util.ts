@@ -71,12 +71,17 @@ export function getFeatureUrl(baseUrl: string, baseDir: string, ref: ResourceRef
     return baseUrl + `ws/res/geojson/${encodeURIComponent(baseDir)}/${ref.resId}/${index}`;
 }
 
-export function getCsvUrl(baseUrl: string, baseDir: string, ref: ResourceRefState, varName?: string | null): string {
+export function getCsvUrl(baseUrl: string, baseDir: string, ref: ResourceRefState, varName?: string | null,
+                          pageNum?: number | null): string {
     let varPart = '';
+    let pagePart = '';
     if (varName) {
         varPart = `?var=${encodeURIComponent(varName)}`;
     }
-    return baseUrl + `ws/res/csv/${encodeURIComponent(baseDir)}/${ref.resId}${varPart}`;
+    if (pageNum) {
+        pagePart = `&page=${pageNum}`;
+    }
+    return baseUrl + `ws/res/csv/${encodeURIComponent(baseDir)}/${ref.resId}${varPart}${pagePart}`;
 }
 
 export function getHtmlUrl(baseUrl: string, baseDir: string, resId: number): string {
@@ -285,7 +290,7 @@ function newInitialAnimationViewData(resourceId: number): AnimationViewDataState
 }
 
 function newInitialTableViewData(resName: string, varName: string): TableViewDataState {
-    return {resName, varName, dataRows: null};
+    return {resName, varName, dataRows: null, coordinateInfo: null};
 }
 
 let WORLD_VIEW_COUNTER = 0;

@@ -1537,10 +1537,12 @@ export function loadTableViewData(viewId: string, resName: string, varName: stri
         const baseDir = selectors.workspaceBaseDirSelector(getState());
         const resource = selectors.resourcesSelector(getState()).find(res => res.name === resName);
         if (resource) {
-            const csvUrl = getCsvUrl(restUrl, baseDir, {resId: resource.id}, varName);
+            const jsonUrl = getCsvUrl(restUrl, baseDir, {resId: resource.id}, varName);
             dispatch(updateTableViewData(viewId, resName, varName, null, null, true));
-            d3.csv(csvUrl)
-              .then((dataRows: any[]) => {
+            console.log('jsonUrl', jsonUrl);
+            d3.json(jsonUrl)
+              .then((dataRows: any) => {
+                  console.log('dataRows', dataRows.length);
                   dispatch(updateTableViewData(viewId, resName, varName, dataRows, null, false));
               })
               .catch((error: any) => {
