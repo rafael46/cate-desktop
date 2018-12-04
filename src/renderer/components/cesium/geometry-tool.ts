@@ -265,7 +265,10 @@ class PolyTool extends ToolBase {
     }
 
     handleMouseMove(movement) {
-        this.moveLastPoint(movement.endPosition);
+        // Rendering on mouse move turned out to be a performance issue. Without this line a Polygon/Polyline will
+        // only be rendered on left mouse click when a point is actually added to the feature.
+
+        //this.moveLastPoint(movement.endPosition);
     }
 
     handleLeftDoubleClick(leftClick) {
@@ -317,16 +320,16 @@ class PolyTool extends ToolBase {
         this.reset();
     }
 
-    private moveLastPoint(position) {
-        if (!this.polylinePositions) {
-            return;
-        }
-        const cartesian = this.context.pickEllipsoid(position);
-        if (cartesian) {
-            this.updatePositions(cartesian);
-            this.hasRubberband = true;
-        }
-    }
+    // private moveLastPoint(position) {
+    //     if (!this.polylinePositions) {
+    //         return;
+    //     }
+    //     const cartesian = this.context.pickEllipsoid(position);
+    //     if (cartesian) {
+    //         this.updatePositions(cartesian);
+    //         this.hasRubberband = true;
+    //     }
+    // }
 
     private updatePositions(cartesian): boolean {
         const polylinePoint = this.context.cartesianWithHeightDelta(cartesian, polylineHeight);
@@ -400,7 +403,9 @@ class PolyTool extends ToolBase {
         this.polylineEntity = null;
         this.polygonEntity = null;
         this.hasRubberband = false;
-        this.context.removeAllToolEntities();
+        if(this.context) {
+            this.context.removeAllToolEntities();
+        }
     }
 
 }
